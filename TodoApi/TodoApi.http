@@ -1,6 +1,11 @@
-@TodoApi_HostAddress = http://localhost:5145
-
-GET {{TodoApi_HostAddress}}/weatherforecast/
-Accept: application/json
+GET http://localhost:5145/api/tareas
 
 ###
+
+POST http://localhost:5145/api/tareas
+Content-Type: application/json
+
+{
+  "titulo": "Nueva tarea de la presentación",
+  "completada": false
+}

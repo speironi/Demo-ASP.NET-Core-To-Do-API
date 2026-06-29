@@ -1,19 +1,19 @@
 var builder = WebApplication.CreateBuilder(args);
+
+// habilitación de controladores
+builder.Services.AddControllers();
+
+// Habilitar el generador de interfaz visual Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
-// Nuestra "Base de datos" temporal en memoria
-var todos = new List<TodoItem>();
+// Activar la interfaz en modo desarrollo
+app.UseSwagger();
+app.UseSwaggerUI();
 
-// RUTA 1: Obtener todas las tareas (GET)
-app.MapGet("/todoitems", () => todos);
-
-// RUTA 2: Crear una nueva tarea (POST)
-app.MapPost("/todoitems", (TodoItem todo) => {
-    todos.Add(todo);
-    return Results.Created($"/todoitems/{todo.Id}", todo);
-});
+app.UseAuthorization();
+app.MapControllers();
 
 app.Run();
-
-// Definición de nuestro objeto Tarea
-public record TodoItem(int Id, string Name, bool IsComplete);
